@@ -3,8 +3,7 @@ import { connect } from 'react-redux'
 import authActions from '../../redux/actions/authActions';
 import uuidv4 from '../../../node_modules/uuid/dist/v4'
 import '../../styles/styles.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import { NavLink } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -25,13 +24,13 @@ const Home = (props) => {
     }
 
     const limpiarFormulario = () => {
+        setTodo({ id: '', description:'', done: false })
         document.getElementById("form").reset();
       }
 
     const addTodo = e => {
         e.preventDefault()
-        todo.description.length === 0 ? toast.dark('🦄 I do not think you do invisible tasks, do you?') : props.addTodo(todo, props.token) && toast.dark('🦄 Todo added successfully!')
-        limpiarFormulario()
+        todo.description.length === 0 ? toast.dark('🦄 I do not think you do invisible tasks, do you?') : props.addTodo(todo, props.token) && toast.dark('🦄 Todo added successfully!') && limpiarFormulario()
     }
 
     const deleteTodo = e => {
@@ -56,16 +55,15 @@ const Home = (props) => {
                     :
                     <div style={{display:'flex', flexDirection: 'column', width:'100%'}}>
                         {props.todos.map((x) => {
-                        return (<div class=" align-items-center h-100 mt-5" style={{display:'flex', justifyContent:'space-between', width:'100%'}}>
-                                    <h4 style={{color:'#ffffff'}}>{x.description}</h4>
-                                    {x.description === undefined ? null :
-                                    <div>
-                                    {/* <button id={x.id}  type="submit" class="btn" style={{backgroundColor:'#6fffe9', color:'#3a506b'}} onClick={completedTodo}>Completed</button> */}
-                                        <button id={x.id}  type="submit" class="btn ml-2" style={{backgroundColor:'#6fffe9', color:'#3a506b'}} onClick={deleteTodo}>Delete</button>
+                        return (x.description === undefined ? null :
+                                    <div class=" align-items-center h-100 mt-5" style={{display:'flex', justifyContent:'space-between', width:'100%'}}>
+                                        <h4 style={{color:'#ffffff'}}>{x.description}</h4>
+                                        <div>
+                                            <button id={x.id}  type="submit" class="btn ml-2" style={{backgroundColor:'#6fffe9', color:'#3a506b'}} onClick={deleteTodo}>Delete</button>
+                                        </div>
                                     </div>
-                                    }
-                                </div>)
-                    })}
+                            )
+                        })}
                     </div>
                     }
                 </form>
@@ -95,7 +93,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
     addTodo: authActions.addTodo,
-    deleteTodo: authActions.deleteTodo
+    deleteTodo: authActions.deleteTodo,
 }
  
 export default connect(mapStateToProps, mapDispatchToProps)(Home)
