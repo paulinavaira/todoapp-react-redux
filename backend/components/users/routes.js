@@ -18,4 +18,7 @@ router.route('/addtodo')
 router.route('/deletetodo')
     .post(passport.authenticate('jwt', { session: false }), controller.deleteTodo)
 
+router.route('/edittodo')
+    .put(passport.authenticate('jwt', { session: false }), controller.editTodo)
+
 module.exports = router

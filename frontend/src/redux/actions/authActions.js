@@ -85,6 +85,23 @@ const authActions = {
                 alert(response.data.error)
             }
         }
+    },
+    editTodo: (todo, tokenLS) => {
+        return async (dispatch, getState) => {
+            const response = await axios.put(path + `/user/edittodo`, todo, {
+                headers: {
+                    Authorization: `Bearer ${tokenLS}`
+                }
+            })
+            if(response.data.success) {
+                dispatch({
+                    type:'ADD_TODO',
+                    payload: {todos: response.data.todos}
+                })
+            } else {
+                alert(response.data.error)
+            }
+        }
     }
 }
 

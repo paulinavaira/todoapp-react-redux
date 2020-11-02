@@ -3,13 +3,13 @@ import { connect } from 'react-redux'
 import authActions from '../../redux/actions/authActions';
 import uuidv4 from '../../../node_modules/uuid/dist/v4'
 import '../../styles/styles.css'
-import { NavLink } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Home = (props) => {
 
     const [todo, setTodo] = useState({ id: '', description:'', done: false });
+    const [edit, setEdit] = useState(false)
 
     useEffect(() => {
         props.addTodo()
@@ -23,14 +23,14 @@ const Home = (props) => {
         })
     }
 
-    const limpiarFormulario = () => {
+    const cleanForm = () => {
         setTodo({ id: '', description:'', done: false })
         document.getElementById("form").reset();
       }
 
     const addTodo = e => {
         e.preventDefault()
-        todo.description.length === 0 ? toast.dark('🦄 I do not think you do invisible tasks, do you?') : props.addTodo(todo, props.token) && toast.dark('🦄 Todo added successfully!') && limpiarFormulario()
+        todo.description.length === 0 ? toast.dark('🦄 I do not think you do invisible tasks, do you?') : props.addTodo(todo, props.token) && toast.dark('🦄 Todo added successfully!') && cleanForm()
     }
 
     const deleteTodo = e => {
@@ -39,6 +39,29 @@ const Home = (props) => {
         props.deleteTodo(id, props.token) && toast.dark('🦄 Todo deleted successfully!')
     }
 
+    const openToEdit = e => {
+        const id = e.target.id
+        setEdit(!edit)
+        setTodo({
+            ...todo,
+            id: id
+        })
+    }
+
+    const readEditTodo = e => {
+        const id = e.target.id
+        setTodo({
+            ...todo,
+            id: id,
+            description: e.target.value,
+        })
+    }
+
+    const editTodo = async e => {
+        e.preventDefault()
+        await props.editTodo(todo, props.token)
+        setEdit(false)
+    }
     return ( 
     <>
         <div class="justify-content-center align-items-center h-100 mt-5">
@@ -56,12 +79,22 @@ const Home = (props) => {
                     <div style={{display:'flex', flexDirection: 'column', width:'100%'}}>
                         {props.todos.map((x) => {
                         return (x.description === undefined ? null :
+                                (!edit ?
                                     <div class=" align-items-center h-100 mt-5" style={{display:'flex', justifyContent:'space-between', width:'100%'}}>
                                         <h4 style={{color:'#ffffff'}}>{x.description}</h4>
                                         <div>
                                             <button id={x.id}  type="submit" class="btn ml-2" style={{backgroundColor:'#6fffe9', color:'#3a506b'}} onClick={deleteTodo}>Delete</button>
+                                            <button id={x.id}  type="submit" class="btn ml-2" style={{backgroundColor:'#6fffe9', color:'#3a506b'}} onClick={openToEdit}>Edit</button>
                                         </div>
                                     </div>
+                                :
+                                (todo.id === x.id &&
+                                    <div class=" align-items-center h-100 mt-5" style={{display:'flex', justifyContent:'space-between', width:'100%'}}>
+                                    <input placeholder={x.description} id={x.id} onChange={readEditTodo}/>
+                                    <button id={x.id}  type="submit" class="btn ml-2" style={{backgroundColor:'#6fffe9', color:'#3a506b'}} onClick={editTodo}>Add</button>
+                                </div>
+                                )
+                                )
                             )
                         })}
                     </div>
@@ -94,6 +127,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
     addTodo: authActions.addTodo,
     deleteTodo: authActions.deleteTodo,
+    editTodo: authActions.editTodo
 }
  
 export default connect(mapStateToProps, mapDispatchToProps)(Home)

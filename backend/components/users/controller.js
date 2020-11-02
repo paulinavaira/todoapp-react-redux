@@ -116,6 +116,23 @@ const controller = {
                 error: err
             })
         }
+    },
+    editTodo: async(req, res) => {
+        const { id ,description } = req.body
+        const { _id } = req.user
+        try{
+            const editUserTodo = await User.updateOne({ _id: _id, todos:{ $elemMatch: { id: id }} }, { $set: {"todos.$.description": description }})
+            const updatedUser = await User.findOne({_id: _id})
+            res.json({ 
+                success: true,
+                todos: updatedUser.todos,
+            })
+        } catch(err) {
+            res.json({
+                success: false,
+                error: err
+            })
+        }
     }
 }
 
