@@ -2,8 +2,10 @@
 A simple todo-app with MERN stack and Redux.
 
 ## Functions 
--Create a task
+-Create a task ✔️
 
--Update a task 💻🔨
+-Update a task ✔️
 
--Delete a task
+-Delete a task ✔️
+
+## Improving functionalities and fixing bugs💻🔨
