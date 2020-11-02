@@ -12,28 +12,28 @@ const Header = (props) => {
 
     return ( 
     <>
-        <nav class="navbar navbar-expand-lg " style={{backgroundColor:'#0b132b'}}>
-            <NavLink style={{color:'#6fffe9', fontSize:'4vh', fontWeight:'800'}} class="navbar-brand" to="/">Todo App</NavLink>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+        <nav className="navbar navbar-expand-lg " style={{backgroundColor:'#0b132b'}}>
+            <NavLink style={{color:'#6fffe9', fontSize:'4vh', fontWeight:'800'}} className="navbar-brand" to="/">Todo App</NavLink>
+            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span className="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarText">
+            <div className="collapse navbar-collapse" id="navbarText">
                     {props.user ?
                     <div  style={{display:'flex', alignItems:'center', justifyContent:'space-between',  listStyle:'none'}}>
-                        <li class="nav-item">
-                            <NavLink style={{color:'#ffffff'}} to="" class="nav-link">Welcome, {props.user} </NavLink>
+                        <li className="nav-item">
+                            <NavLink style={{color:'#ffffff'}} to="" className="nav-link">Welcome, {props.user} </NavLink>
                         </li>
-                        <li class="nav-item">
-                            <NavLink style={{color:'#6fffe9'}} to="" class="nav-link ml-2" onClick={logout}> LogOut</NavLink>
+                        <li className="nav-item">
+                            <NavLink style={{color:'#6fffe9'}} to="" className="nav-link ml-2" onClick={logout}> LogOut</NavLink>
                         </li>
                     </div>
                     :
                     <div style={{display:'flex', alignItems:'center', justifyContent:'space-between',  listStyle:'none'}}>
-                    <li class="nav-item mr-2">
-                        <NavLink style={{color:'#ffffff'}} class="nav-link" to="/login">Login </NavLink>
+                    <li className="nav-item mr-2">
+                        <NavLink style={{color:'#ffffff'}} className="nav-link" to="/login">Login </NavLink>
                     </li>
-                    <li class="nav-item">
-                        <NavLink style={{color:'#ffffff'}} class="nav-link" to="/signup"> Signup</NavLink>
+                    <li className="nav-item">
+                        <NavLink style={{color:'#ffffff'}} className="nav-link" to="/signup"> Signup</NavLink>
                     </li>
                     </div>
                     }

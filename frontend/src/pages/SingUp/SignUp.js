@@ -26,20 +26,20 @@ const SignUp = (props) => {
 
     return ( 
     <>  
-        <div class="justify-content-center align-items-center h-100 mt-5">
-            <h2 style={{color:'#ffffff'}} class="text-center">Create an Account</h2>
+        <div className="justify-content-center align-items-center h-100 mt-5">
+            <h2 style={{color:'#ffffff'}} className="text-center">Create an Account</h2>
             <div style={{display:'flex', justifyContent: 'center' }}>
-                <form class="form-group col-md-4">
-                    <label style={{color:'#ffffff'}} class="mt-2">Username</label>
-                    <input type='text' name='username' class="form-control" placeholder='Write your username here' onChange={readInput}/>
-                    <label style={{color:'#ffffff'}} class="mt-2">Email</label>
-                    <input type='text' name='email' class="form-control" placeholder='Write your email here' onChange={readInput}/>
-                    <label style={{color:'#ffffff'}} class="mt-2">Password</label>
-                    <input type='password' name='password' class="form-control" placeholder='Write your password here' onChange={readInput}/>
-                    <button style={{backgroundColor:'#6fffe9', color:'#3a506b'}} type="button" class="btn btn-dark mt-3 col-md-12" onClick={sendUser}>Sign Up</button>
+                <form className="form-group col-md-4">
+                    <label style={{color:'#ffffff'}} className="mt-2">Username</label>
+                    <input type='text' name='username' className="form-control" placeholder='Write your username here' onChange={readInput}/>
+                    <label style={{color:'#ffffff'}} className="mt-2">Email</label>
+                    <input type='text' name='email' className="form-control" placeholder='Write your email here' onChange={readInput}/>
+                    <label style={{color:'#ffffff'}} className="mt-2">Password</label>
+                    <input type='password' name='password' className="form-control" placeholder='Write your password here' onChange={readInput}/>
+                    <button style={{backgroundColor:'#6fffe9', color:'#3a506b'}} type="button" className="btn btn-dark mt-3 col-md-12" onClick={sendUser}>Sign Up</button>
                 </form>
             </div>
-            <div style={{color:'#ffffff'}} class="text-center">Already have an account? <NavLink style={{color:'#6fffe9'}} to="/login">Login here</NavLink></div>
+            <div style={{color:'#ffffff'}} className="text-center">Already have an account? <NavLink style={{color:'#6fffe9'}} to="/login">Login here</NavLink></div>
             <ToastContainer
                 position="bottom-center"
                 autoClose={5000}

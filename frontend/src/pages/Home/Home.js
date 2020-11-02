@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux'
 import authActions from '../../redux/actions/authActions';
 import uuidv4 from '../../../node_modules/uuid/dist/v4'
@@ -8,12 +8,12 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Home = (props) => {
 
-    const [todo, setTodo] = useState({ id: '', description:'', done: false });
+    const [todo, setTodo] = useState({ id: '', description:'', done: false })
     const [edit, setEdit] = useState(false)
 
-    useEffect(() => {
-        props.addTodo()
-    }, [props.todos]);
+    const generateKey = (pre) => {
+        return `${ pre }_${ new Date().getTime() }`
+    }
 
     const readInput = e => {
         setTodo({
@@ -25,8 +25,8 @@ const Home = (props) => {
 
     const cleanForm = () => {
         setTodo({ id: '', description:'', done: false })
-        document.getElementById("form").reset();
-      }
+        document.getElementById("form").reset()
+    }
 
     const addTodo = e => {
         e.preventDefault()
@@ -64,34 +64,34 @@ const Home = (props) => {
     }
     return ( 
     <>
-        <div class="justify-content-center align-items-center h-100 mt-5">
-            <h2 style={{color:'#ffffff'}} class="text-center">Todo List</h2>
+        <div className="justify-content-center align-items-center h-100 mt-5">
+            <h2 style={{color:'#ffffff'}} className="text-center">Todo List</h2>
             <div style={{display:'flex', justifyContent: 'center' }}>
-                <form id="form" class="form-group col-md-4 row ">
-                    <label style={{color:'#ffffff'}} class="mt-2">Add a task</label>
-                    <input type='text' name='description' class="form-control" placeholder='Write your task here' onChange={readInput}></input>
-                    <button type="submit" class="btn btn-dark mt-3 col-md-12" style={{backgroundColor:'#6fffe9', color:'#3a506b'}} onClick={addTodo}>Add</button>
+                <form id="form" className="form-group col-md-4 row ">
+                    <label style={{color:'#ffffff'}} className="mt-2">Add a task</label>
+                    <input type='text' name='description' className="form-control" placeholder='Write your task here' onChange={readInput}></input>
+                    <button type="submit" className="btn btn-dark mt-3 col-md-12" style={{backgroundColor:'#6fffe9', color:'#3a506b'}} onClick={addTodo}>Add</button>
                     {props.todos === undefined ? 
-                    <div class="justify-content-center align-items-center h-100 mt-5">
-                        <h4 style={{color:'#ffffff'}} class="text-center">Air is essential, but add something else!</h4>
+                    <div className="justify-content-center align-items-center h-100 mt-5">
+                        <h4 style={{color:'#ffffff'}} className="text-center">Air is essential, but add something else!</h4>
                     </div>
                     :
                     <div style={{display:'flex', flexDirection: 'column', width:'100%'}}>
                         {props.todos.map((x) => {
                         return (x.description === undefined ? null :
                                 (!edit ?
-                                    <div class=" align-items-center h-100 mt-5" style={{display:'flex', justifyContent:'space-between', width:'100%'}}>
+                                    <div className=" align-items-center h-100 mt-5" style={{display:'flex', justifyContent:'space-between', width:'100%'}} key={generateKey(x.id)}>
                                         <h4 style={{color:'#ffffff'}}>{x.description}</h4>
                                         <div>
-                                            <button id={x.id}  type="submit" class="btn ml-2" style={{backgroundColor:'#6fffe9', color:'#3a506b'}} onClick={deleteTodo}>Delete</button>
-                                            <button id={x.id}  type="submit" class="btn ml-2" style={{backgroundColor:'#6fffe9', color:'#3a506b'}} onClick={openToEdit}>Edit</button>
+                                            <button id={x.id}  type="submit" className="btn ml-2" style={{backgroundColor:'#6fffe9', color:'#3a506b'}} onClick={deleteTodo}>Delete</button>
+                                            <button id={x.id}  type="submit" className="btn ml-2" style={{backgroundColor:'#6fffe9', color:'#3a506b'}} onClick={openToEdit}>Edit</button>
                                         </div>
                                     </div>
                                 :
                                 (todo.id === x.id &&
-                                    <div class=" align-items-center h-100 mt-5" style={{display:'flex', justifyContent:'space-between', width:'100%'}}>
+                                    <div className=" align-items-center h-100 mt-5" style={{display:'flex', justifyContent:'space-between', width:'100%'}} key={generateKey}>
                                     <input placeholder={x.description} id={x.id} onChange={readEditTodo}/>
-                                    <button id={x.id}  type="submit" class="btn ml-2" style={{backgroundColor:'#6fffe9', color:'#3a506b'}} onClick={editTodo}>Add</button>
+                                    <button id={x.id}  type="submit" className="btn ml-2" style={{backgroundColor:'#6fffe9', color:'#3a506b'}} onClick={editTodo}>Add</button>
                                 </div>
                                 )
                                 )
